@@ -23,12 +23,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      
 
-      # Runs a single command using the runners shell
-      - name: Generate Report
-        uses: actions/upload-artifact@v2
+      - name: Upload to S3
+        uses: shallwefootball/s3-upload-action@master
+        id: S3
         with:
-          name: HTML_Report
-          path: cypress/reports/Result
-          retention-days: 5
+          aws_key_id: ${{secrets.AWS_KEY_ID}}
+          aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: my-first-lab-aws
+          source_dir: .
